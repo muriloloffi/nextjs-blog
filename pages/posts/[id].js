@@ -1,6 +1,8 @@
+import Date from "components/date";
 import Layout from "components/layout/layout";
 import Head from "next/head";
 import { getAllPostIds, getPostData } from "utils/posts";
+import utilStyles from "styles/utils.module.css";
 
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.id);
@@ -25,12 +27,14 @@ export default function Post({ postData }) {
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <br />
-      {postData.id}
-      <br />
-      {postData.date}
-      <br />
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <article>
+        <br />
+        {postData.id}
+        <br />
+        <Date dateString={postData.date} />
+        <br />
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </article>
     </Layout>
   );
 }
